@@ -1,1 +1,2 @@
-# the-game
+# Front
+Front project for the game

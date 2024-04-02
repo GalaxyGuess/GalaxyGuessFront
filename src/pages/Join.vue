@@ -17,14 +17,15 @@
         </ul>
         <form class="galaxy-form create">
             <h2>Créer une partie</h2>
-            <input type="text" placeholder="Nom d'utilisateur" class="galaxy-input">
-            <input type="text" placeholder="Mot de passe" class="galaxy-input">
+            <input type="text" placeholder="Nom d'utilisateur">
+            <input type="text" placeholder="Mot de passe">
             <button>Créer ma partie</button>
         </form>
         <form class="galaxy-form join">
             <h2>Rejoindre une partie</h2>
             <input type="text" placeholder="Nom d'utilisateur">
             <input type="text" placeholder="Code de la partie">
+            <input type="text" placeholder="Mot de passe">
             <button>Rejoindre la partie</button>
         </form>
 

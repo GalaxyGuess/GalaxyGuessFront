@@ -1,4 +1,13 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const goToJoinPage = () => {
+    console.log('goToJoinPage')
+    // @ts-ignore
+    router.push('/join')
+};
 </script>
 
 <template>
@@ -7,7 +16,8 @@
         <p>
             Trouve la notation des avis google avant tes amis!
         </p>
-        <button>Jouer maintenant</button>
+        <button @click="goToJoinPage">Jouer maintenant</button>
+        <RouterLink :to="'/join'">Jouer oui</RouterLink>
     </main>
 </template>
 

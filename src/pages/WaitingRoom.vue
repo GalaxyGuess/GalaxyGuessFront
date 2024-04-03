@@ -1,8 +1,45 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 
-const chatEnabled = ref(true); // Modifier la valeur pour activer ou désactiver le chat
+const nbRounds = ref(7); // Modifier la valeur pour changer le nombre de joueurs
+const timePerRound = ref(30); // Modifier la valeur pour changer le nombre de joueurs
 const nbPlayers = ref(4); // Modifier la valeur pour changer le nombre de joueurs
+const chatEnabled = ref(true); // Modifier la valeur pour activer ou désactiver le chat
+
+interface Message {
+  id: number;
+  text: string;
+  timestamp: Date;
+}
+
+// Ajouts pour le chat
+const newMessage = ref('');
+const messages = ref<Message[]>([]);
+const nextId = ref(1);
+
+messages.value.push({id: 0, text:"Bienvenue dans cette partie !", timestamp: new Date()});
+
+const sendMessage = () => {
+  if (newMessage.value.trim() !== '') { // Vérifie que le message n'est pas vide
+    // Ajoute le message à la liste des messages
+    messages.value.push({ id: nextId.value++, text: newMessage.value, timestamp: new Date() });
+    newMessage.value = ''; // Réinitialise le champ de saisie du message
+
+    // Utilise nextTick pour attendre la prochaine mise à jour du DOM
+    nextTick(() => {
+      const messagesContainer = document.querySelector(".messages-container");
+      if (messagesContainer) {
+        // Fait défiler le conteneur des messages vers le bas pour afficher le dernier message
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+    });
+  }
+};
+
+const formatDate = (date: Date) => {
+  return date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
+};
+
 </script>
 
 <template>
@@ -18,19 +55,17 @@ const nbPlayers = ref(4); // Modifier la valeur pour changer le nombre de joueur
                 </ul>
             </div>
             <div v-if="chatEnabled" class="chat">
-                <h2>Chat</h2>
-                <ul>
-                    <li>Joueur 1: Salut!</li>
-                    <li>Joueur 2: Salut!</li>
-                    <li>Joueur 3: Salut!</li>
-                    <li>Joueur 4: Salut!</li>
-                    <li>Joueur 1: Super partie!</li>
-                    <li>Joueur 2: Oui, c'est génial!</li>
-                    <li>Joueur 3: Je m'amuse beaucoup!</li>
-                    <li>Joueur 4: Moi aussi, c'est super amusant!</li>
-                </ul>
-                <input type="text" placeholder="Envoyer un message">
-                <button>Envoyer</button>
+                <div class="chat-container">
+                    <div class="messages-container">
+                    <div v-for="message in messages" :key="message.id" class="message">
+                    {{message.id}} à {{ formatDate(message.timestamp) }}: {{ message.text }}
+                    </div>
+                    </div>
+                    <div class="input-container">
+                    <input v-model="newMessage" @keyup.enter="sendMessage" placeholder="Tapez votre message ici..." />
+                    <button @click="sendMessage">Envoyer</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="column-2">
@@ -38,23 +73,24 @@ const nbPlayers = ref(4); // Modifier la valeur pour changer le nombre de joueur
                 <h2>Informations de la partie</h2>
                 <div>
                     <p>Nombre de joueurs: {{ nbPlayers }}</p>
-                    <p>Nombre de tours: 5</p>
-                    <p>Temps par tour: 30s</p>
+                    <p>Nombre de tours: {{ nbRounds }}</p>
+                    <p>Temps par tour: {{ timePerRound }} secondes</p>
+                    <p>Chat activé {{ chatEnabled }}</p>
                 </div>
             </div>
             <div class="game-settings">
                 <h2>Paramètres de la partie</h2>
                 <div>
+                    <label for="maxPlayers">Nombre de joueurs maximum</label>
+                    <input type="number" id="maxPlayers" min="2" max="15" v-model="nbPlayers">
+                </div>
+                <div>
                     <label for="rounds">Nombre de tours</label>
-                    <input type="number" id="rounds" min="1" max="10">
+                    <input type="number" id="rounds" min="1" max="10" v-model="nbRounds">
                 </div>
                 <div>
                     <label for="time">Temps par tour</label>
-                    <input type="number" id="time" min="10" max="60">
-                </div>
-                <div>
-                    <label for="maxPlayers">Nombre de joueurs maximum</label>
-                    <input type="number" id="maxPlayers" min="2" max="15" v-model="nbPlayers">
+                    <input type="number" id="time" min="10" max="60" v-model="timePerRound">
                 </div>
                 <div>
                     <label for="chatEnabled">Activer le chat</label>
@@ -73,6 +109,7 @@ const nbPlayers = ref(4); // Modifier la valeur pour changer le nombre de joueur
     justify-content: space-evenly;
     align-items: flex-start;
     min-height: 100vh;
+    flex-wrap: wrap;
 }
 .column-1 {
     display: flex;
@@ -86,5 +123,107 @@ const nbPlayers = ref(4); // Modifier la valeur pour changer le nombre de joueur
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
+}
+
+.players {
+    background-color: #1b1b1b;
+    padding: 0 20px 20px 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    min-width: 500px;
+}
+
+.chat {
+    background-color: #1b1b1b;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    min-width: 500px;
+}
+
+.game-info {
+    background-color: #1b1b1b;
+    padding: 0 20px 20px 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    min-width: 350px;
+}
+
+.game-settings {
+    background-color: #1b1b1b;
+    padding: 0 20px 20px 20px;
+    border-radius: 12px;
+    margin-top: 20px;
+    min-width: 350px;
+}
+
+//////
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  border: 1px solid #1b1b1b;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.messages-container {
+  flex-grow: 1;
+  padding: 10px;
+  overflow-y: auto;
+  max-height: 300px;
+  background-color: #1b1b1b;
+}
+
+.message {
+  margin-bottom: 10px;
+  padding: 5px;
+  background-color: rgb(75, 75, 75);
+  border-radius: 4px;
+}
+
+.input-container {
+  display: flex;
+  padding: 10px;
+}
+
+.input-container input {
+  flex-grow: 1;
+  margin-right: 10px;
+  padding: 5px;
+  border: 1px solid rgb(75, 75, 75);
+  border-radius: 4px;
+}
+
+.input-container button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.input-container button:hover {
+  background-color: #0056b3;
+}
+
+::-webkit-scrollbar, ::-webkit-scrollbar:hover {
+  width: 12px; /* Largeur de la scrollbar */
+  background-color: #272727; /* Couleur de fond de la scrollbar */
+}
+
+/* Le track de la scrollbar (la piste) */
+::-webkit-scrollbar-track, ::-webkit-scrollbar-track:hover {
+  background-color: #272727; /* Couleur de fond du track */
+  border-radius: 20px; /* Arrondit les angles du track */
+}
+
+/* Le thumb de la scrollbar (la partie que l'on peut déplacer) */
+::-webkit-scrollbar-thumb, ::-webkit-scrollbar-thumb:hover {
+  background-color: #5f5f5f; /* Couleur du thumb */
+  border-radius: 20px; /* Arrondit les angles du thumb */
+  border: 3px solid #383838; /* Bordure autour du thumb, de la même couleur que le fond du track pour l'effet "coulé" */
 }
 </style>

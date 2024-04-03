@@ -17,7 +17,6 @@ const goToJoinPage = () => {
             Trouve la notation des avis google avant tes amis!
         </p>
         <button @click="goToJoinPage">Jouer maintenant</button>
-        <RouterLink :to="'/join'">Jouer oui</RouterLink>
     </main>
 </template>
 

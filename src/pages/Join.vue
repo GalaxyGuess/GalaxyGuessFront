@@ -42,7 +42,7 @@ $pink-border: #b18597;
 $pink-shadow: #ffe3e2;
 
 html, body {
-    height: 100%;
+    //height: 100%;
     margin: 0;
     padding: 0;
     display: flex;

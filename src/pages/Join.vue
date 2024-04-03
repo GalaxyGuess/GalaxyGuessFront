@@ -4,7 +4,7 @@
 
 <template>
     <main class="Join-page">
-        <h1>Créer ou rejoindre un partie</h1>
+        <h1>Créer ou rejoindre une partie</h1>
         <ul class="galaxy-list">
             <li>Partie de John - 2/3 joueur(s)    <button>Rejoindre</button></li>
             <li>Partie de Jane - 1/3 joueur(s)    <button>Rejoindre</button></li>
@@ -42,7 +42,7 @@ $pink-border: #b18597;
 $pink-shadow: #ffe3e2;
 
 html, body {
-    //height: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
     display: flex;

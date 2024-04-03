@@ -1,6 +1,6 @@
 <template>
     <div class="navbar">
-        <h1 class="navbar-title" @click="goHome">GalaxyGuess</h1>
+        <h1 class="navbar-title" @click="goHome">Galaxy Guess</h1>
     </div>
 </template>
 

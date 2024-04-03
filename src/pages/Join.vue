@@ -1,4 +1,20 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const createGame = () => {
+    console.log('createGame');
+    // @ts-ignore
+    router.push('/waiting');
+};
+
+const joinGame = () => {
+    console.log('joinGame');
+    // @ts-ignore
+    router.push('/waiting');
+};
+
 
 </script>
 
@@ -19,14 +35,14 @@
             <h2>Créer une partie</h2>
             <input type="text" placeholder="Nom d'utilisateur">
             <input type="text" placeholder="Mot de passe">
-            <button>Créer ma partie</button>
+            <button @click="createGame">Créer ma partie</button>
         </form>
         <form class="galaxy-form join">
             <h2>Rejoindre une partie</h2>
             <input type="text" placeholder="Nom d'utilisateur">
             <input type="text" placeholder="Code de la partie">
             <input type="text" placeholder="Mot de passe">
-            <button>Rejoindre la partie</button>
+            <button @click="joinGame">Rejoindre la partie</button>
         </form>
 
     </main>

@@ -3,11 +3,6 @@ import { ref } from 'vue';
 
 const chatEnabled = ref(true); // Modifier la valeur pour activer ou désactiver le chat
 const nbPlayers = ref(4); // Modifier la valeur pour changer le nombre de joueurs
-
-
-function excludePlayer(playerId) {
-  // Logique pour exclure un joueur
-}
 </script>
 
 <template>
@@ -16,10 +11,10 @@ function excludePlayer(playerId) {
             <div class="players">
                 <h2>Joueurs</h2>
                 <ul>
-                    <li>Joueur 1 <button @click="excludePlayer(1)">Exclure</button></li>
-                    <li>Joueur 2 <button @click="excludePlayer(2)">Exclure</button></li>
-                    <li>Joueur 3 <button @click="excludePlayer(3)">Exclure</button></li>
-                    <li>Joueur 4 <button @click="excludePlayer(4)">Exclure</button></li>
+                    <li>Joueur 1 <button>Exclure</button></li>
+                    <li>Joueur 2 <button>Exclure</button></li>
+                    <li>Joueur 3 <button>Exclure</button></li>
+                    <li>Joueur 4 <button>Exclure</button></li>
                 </ul>
             </div>
             <div v-if="chatEnabled" class="chat">

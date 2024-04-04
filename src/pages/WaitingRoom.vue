@@ -81,6 +81,7 @@ const formatDate = (date: Date) => {
                 </div>
             </div>
             <div class="game-settings">
+                <h2>Paramètres de la partie</h2>
                 <div>
                   <label for="difficulty">Difficulté</label>
                   <select id="difficulty" v-model="difficulty">

@@ -5,6 +5,7 @@ const nbRounds = ref(7); // Modifier la valeur pour changer le nombre de joueurs
 const timePerRound = ref(30); // Modifier la valeur pour changer le nombre de joueurs
 const nbPlayers = ref(4); // Modifier la valeur pour changer le nombre de joueurs
 const chatEnabled = ref(true); // Modifier la valeur pour activer ou désactiver le chat
+const difficulty = ref('medium'); // Modifier la valeur pour changer la difficulté
 
 interface Message {
   id: number;
@@ -72,6 +73,7 @@ const formatDate = (date: Date) => {
             <div class="game-info">
                 <h2>Informations de la partie</h2>
                 <div>
+                    <p>Difficulté : {{ difficulty }}</p>
                     <p>Nombre de joueurs: {{ nbPlayers }}</p>
                     <p>Nombre de tours: {{ nbRounds }}</p>
                     <p>Temps par tour: {{ timePerRound }} secondes</p>
@@ -79,7 +81,14 @@ const formatDate = (date: Date) => {
                 </div>
             </div>
             <div class="game-settings">
-                <h2>Paramètres de la partie</h2>
+                <div>
+                  <label for="difficulty">Difficulté</label>
+                  <select id="difficulty" v-model="difficulty">
+                    <option value="easy">Facile</option>
+                    <option value="medium">Moyenne</option>
+                    <option value="hard">Difficile</option>
+                  </select>
+                </div>
                 <div>
                     <label for="maxPlayers">Nombre de joueurs maximum</label>
                     <input type="number" id="maxPlayers" min="2" max="15" v-model="nbPlayers">

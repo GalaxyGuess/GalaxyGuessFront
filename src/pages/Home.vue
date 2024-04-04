@@ -12,9 +12,9 @@ const goToJoinPage = () => {
 
 <template>
     <main class="Home-page">
-        <h1>Galaxy Guess</h1>
+        <h1>⭐️ Le jeu des étoiles</h1>
         <p>
-            Trouve la notation des avis google avant tes amis!
+            Trouve la notation des avis avant tes amis!
         </p>
         <button @click="goToJoinPage">Jouer maintenant</button>
     </main>

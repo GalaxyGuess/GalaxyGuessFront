@@ -5,14 +5,12 @@ const router = useRouter();
 
 const createGame = () => {
     console.log('createGame');
-    // @ts-ignore
-    router.push('/waiting');
+    router.push('/play');
 };
 
 const joinGame = () => {
     console.log('joinGame');
-    // @ts-ignore
-    router.push('/waiting');
+    router.push('/play');
 };
 
 

@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { nextTick, ref } from 'vue';
+import { GamePhase, useGameState } from "../../stores/gameState";
+
+const { gameState } = useGameState();
+
 
 const nbRounds = ref(7); // Modifier la valeur pour changer le nombre de joueurs
 const timePerRound = ref(30); // Modifier la valeur pour changer le nombre de joueurs
@@ -25,7 +29,7 @@ const sendMessage = () => {
     // Ajoute le message à la liste des messages
     messages.value.push({ id: nextId.value++, text: newMessage.value, timestamp: new Date() });
     newMessage.value = ''; // Réinitialise le champ de saisie du message
-
+    // COPILOT QUI PUE SA MERE
     // Utilise nextTick pour attendre la prochaine mise à jour du DOM
     nextTick(() => {
       const messagesContainer = document.querySelector(".messages-container");
@@ -41,11 +45,15 @@ const formatDate = (date: Date) => {
   return date.getHours() + ':' + String(date.getMinutes()).padStart(2, '0');
 };
 
+function startGame() {
+  gameState.phase = GamePhase.Playing;
+}
+
 </script>
 
 <template>
     <main class="Waiting-room-page">
-        <div class="column-1">
+        <section class="column-1">
             <div class="players">
                 <h2>Joueurs</h2>
                 <ul>
@@ -68,8 +76,8 @@ const formatDate = (date: Date) => {
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="column-2">
+        </section>
+        <section class="column-2">
             <div class="game-info">
                 <h2>Informations de la partie</h2>
                 <div>
@@ -106,9 +114,9 @@ const formatDate = (date: Date) => {
                     <label for="chatEnabled">Activer le chat</label>
                     <input type="checkbox" id="chatEnabled" v-model="chatEnabled">
                 </div>
-                <button>Commencer la partie</button>
+                <button @click="startGame">Commencer la partie</button>
             </div>
-        </div>
+        </section>
     </main>
 </template>
 

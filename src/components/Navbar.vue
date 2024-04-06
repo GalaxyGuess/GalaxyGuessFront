@@ -1,20 +1,17 @@
-<template>
-    <div class="navbar">
-        <h1 class="navbar-title" @click="goHome">⭐️ Le jeu des étoiles ⭐️</h1>
-    </div>
-</template>
-
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const goHome = () => {
     console.log('goHome')
-    // @ts-ignore
     router.push('/')
 };
 </script>
-
+<template>
+    <div class="navbar">
+        <h1 class="navbar-title" @click="goHome">⭐️ Le jeu des étoiles ⭐️</h1>
+    </div>
+</template>
 <style scoped>
 .navbar {
     background-color: #333;

@@ -1,19 +1,67 @@
 import { reactive } from "vue";
 
+export enum GamePhase {
+    Waiting =  0,
+    Playing = 1,
+}
 
-export const gameState = reactive({
+export type GamePlayer = {
+    id: number,
+    username: string,
+    score: number,
+    isConnected: boolean
+}
+
+export type GameSettings = {
+    numberOfRound: number,
+    timePerRound: number,
+    maxPlayers: number
+}
+
+export type ChatMessage = {
+    from: number,
+    content: string,
+    date: number
+}
+
+export type GameState = {
+    phase: GamePhase,
+    players: GamePlayer[],
+    chatMessages: ChatMessage[],
+    rounds: GameRound[],
+    settings: GameSettings,
+}
+
+export type GameRound = {
+    id: number,
+    answer: number, // The value of the correct answer added at the end of the round
+    review: string,
+    startTime: number,
+    guesses: Guess[]
+}
+
+export type Guess = {
+    from: number,
+    value: number,
+}
+
+export const gameState = reactive<GameState>({
+    phase: GamePhase.Waiting,
     players: [{
         id: 0,
         username: "Benji",
-        score: 0
+        score: 0,
+        isConnected: true
     }, {
         id: 1,
         username: "Aartwix",
-        score: 0
+        score: 0,
+        isConnected: true
     }, {
         id: 2,
         username: "Excaliburne",
-        score: 0
+        score: 0,
+        isConnected: true
     }],
     chatMessages: [{
         from: 0,// id of the player
@@ -45,5 +93,7 @@ export const gameState = reactive({
 })
 
 export function useGameState() {
-    return gameState;
+    return {
+        gameState,
+    };
 }

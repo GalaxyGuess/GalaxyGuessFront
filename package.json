@@ -9,6 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/core": "^10.9.0",
+    "jose": "^5.2.4",
+    "surrealdb.js": "^1.0.0-beta.3",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0"
   },
